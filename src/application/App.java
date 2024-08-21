@@ -1,12 +1,13 @@
 package application;
 
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
-import java.sql.Date;
+
+import model.dao.DaoFactory;
+import model.dao.SellerDao;
+import model.entities.Seller;
 import sqljdbc1.DB;
 
 public class App {
@@ -17,7 +18,13 @@ public class App {
 		Date sqlDate = Date.valueOf(today);
 		ResultSet rs = null;
 		DB.closeConn();
-		try {
+		
+		SellerDao s = DaoFactory.createSellerDao();
+		
+		Seller ss = s.findById(3);
+		
+		System.out.println(ss.toString());
+		/*try {
 			Connection c = DB.getConn();
 			st = c.prepareStatement("UPDATE seller SET BaseSalary = BaseSalary + ? WHERE (DepartmentId = ?)",Statement.RETURN_GENERATED_KEYS);
 			
@@ -25,14 +32,14 @@ public class App {
 			st.setInt(2, 2);
 			
 			int rowsAffected=st.executeUpdate();
-			/*if (rowsAffected > 0) {
+			if (rowsAffected > 0) {
 				rs = st.getGeneratedKeys();
 				while (rs.next()) {
 					int id = rs.getInt(1);
 					System.out.println("Done! id = "+id);
 				}
-			}*/
-		//	else {
+			}
+			else {
 				System.out.println(rowsAffected+" linhas afetadas!");
 			
 		}
@@ -43,7 +50,7 @@ public class App {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConn();
-		}
+		}*/
 	}
 
 }

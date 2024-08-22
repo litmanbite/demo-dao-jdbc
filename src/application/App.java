@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
+import model.entities.Department;
 import model.entities.Seller;
 import sqljdbc1.DB;
 
@@ -18,10 +20,11 @@ public class App {
 		Date sqlDate = Date.valueOf(today);
 		ResultSet rs = null;
 		DB.closeConn();
-		
 		SellerDao s = DaoFactory.createSellerDao();
 		
-		Seller ss = s.findById(3);
+		Department d = new Department(3,null);
+		
+		Seller ss = s.findById(2);
 		
 		System.out.println(ss.toString());
 		/*try {

@@ -23,10 +23,10 @@ public class App {
 		SellerDao s = DaoFactory.createSellerDao();
 		
 		Department d = new Department(3,null);
-		
-		Seller ss = s.findById(2);
-		
-		System.out.println(ss.toString());
+		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", sqlDate, 4000.0, d);	
+	//	s.insert(newSeller);
+		List<Seller> ss = s.findAll();
+		ss.stream().forEach(System.out::println);
 		/*try {
 			Connection c = DB.getConn();
 			st = c.prepareStatement("UPDATE seller SET BaseSalary = BaseSalary + ? WHERE (DepartmentId = ?)",Statement.RETURN_GENERATED_KEYS);

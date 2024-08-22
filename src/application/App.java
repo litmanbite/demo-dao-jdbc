@@ -1,32 +1,43 @@
 package application;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
-import model.dao.SellerDao;
+import model.dao.DepartmentDao;
 import model.entities.Department;
-import model.entities.Seller;
-import sqljdbc1.DB;
 
 public class App {
 
 	public static void main(String[] args) {
-		PreparedStatement st = null;
-		LocalDate today = LocalDate.now();	
-		Date sqlDate = Date.valueOf(today);
-		ResultSet rs = null;
-		DB.closeConn();
-		SellerDao s = DaoFactory.createSellerDao();
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		Scanner sc = new Scanner(System.in);
+;		/*System.out.println("=== TEST 1: findById =======");
+		Department dep = departmentDao.findById(1);
+		System.out.println(dep);
 		
-		Department d = new Department(3,null);
-		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", sqlDate, 4000.0, d);	
-	//	s.insert(newSeller);
-		List<Seller> ss = s.findAll();
-		ss.stream().forEach(System.out::println);
+		System.out.println("\n=== TEST 2: findAll =======");
+		List<Department> list = departmentDao.findAll();
+		for (Department d : list) {
+			System.out.println(d);
+		}
+
+		System.out.println("\n=== TEST 3: insert =======");
+		Department newDepartment = new Department(null, "Music");
+		departmentDao.insert(newDepartment);
+		System.out.println("Inserted! New id: " + newDepartment.getId());*/
+
+		System.out.println("\n=== TEST 4: update =======");
+		Department dep2 = departmentDao.findById(1);
+		dep2.setName("Food");
+		departmentDao.update(dep2);
+		System.out.println("Update completed");
+		
+		System.out.println("\n=== TEST 5: delete =======");
+		System.out.print("Enter id for delete test: ");
+		int id = sc.nextInt();
+		departmentDao.deleteById(id);
+		System.out.println("Delete completed");
 		/*try {
 			Connection c = DB.getConn();
 			st = c.prepareStatement("UPDATE seller SET BaseSalary = BaseSalary + ? WHERE (DepartmentId = ?)",Statement.RETURN_GENERATED_KEYS);
